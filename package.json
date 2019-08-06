@@ -10,7 +10,9 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.5.5",
+    "@storybook/addons": "^5.1.10",
     "@storybook/react": "^5.1.10",
+    "@storybook/theming": "^5.1.10",
     "babel-loader": "^8.0.6"
   },
   "dependencies": {
