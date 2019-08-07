@@ -39,11 +39,18 @@ class Input extends React.PureComponent {
   }
 
   handleOnBlur(e) {
-    let input = e.target.value.toString();
+    let input = e.target.value.toString().trim();
     let error_state = this.validateUserInput(input);
+    
+    if(!this.props.required && !input) {
+      error_state = {
+        enabled: false,
+        message: ''
+      };
+    }
 
     this.props.handleOnInputBlur({
-      value: this.state.value,
+      value: input,
       error: error_state
     });
 
@@ -63,6 +70,15 @@ class Input extends React.PureComponent {
     // Check works when first input is a number and post that there is a letter.
     if(int_input.toString().length !== input.length) {
       return 'Only numbers allowed as input';
+    }
+  }
+
+  validateEmailInput(input) {
+    let email_regex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    let matches = input.match(email_regex);
+
+    if(!matches) {
+      return 'Enter valid email address';
     }
   }
 
@@ -89,6 +105,9 @@ class Input extends React.PureComponent {
     switch(this.props.type) {
       case 'number':
         type_error_msg = this.validateNumberInput(input);
+        break;
+      case 'email':
+        type_error_msg = this.validateEmailInput(input);
         break;
     }
 
