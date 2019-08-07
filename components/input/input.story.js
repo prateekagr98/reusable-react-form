@@ -11,8 +11,8 @@ let InputStories = storiesOf('Components', module);
 
 InputStories.add('Input', () => (
   <MainContainer>
-    <Section heading="Basic Input with default props and validations">
-      <Input />
+    <Section heading="Basic Input with default props and validations with auto focus">
+      <Input auto_focus={true} />
     </Section>
     <Section heading="Input with help text">
       <Input help_text="This is a Help text" />

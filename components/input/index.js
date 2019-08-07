@@ -94,7 +94,8 @@ class Input extends React.PureComponent {
             onBlur={this.handleOnBlur.bind(this)}
             maxLength={this.props.max_length}
             minLength={this.props.min_length}
-            required={this.props.required} />
+            required={this.props.required}
+            autoFocus={this.props.auto_focus} />
         </div>
         <div>
           <div css={[grid_styles, this.state.error.enabled ? error_text_style : null]}>
@@ -130,6 +131,8 @@ Input.propTypes = {
   required: PropTypes.bool,
   /** To pass custom error message, this will enable error state */
   error_message: PropTypes.string,
+  /** Auto focus input on page load */
+  auto_focus: PropTypes.bool,
   /** Triggered on input change */
   handleOnInputChange: PropTypes.func,
   /** Triggered when user moves out of the input */
@@ -146,6 +149,7 @@ Input.defaultProps = {
   placeholder: 'Type here..',
   required: false,
   error_message: '',
+  auto_focus: false,
   handleOnInputChange: () => {/* Empty func */},
   customValidation: () => {return '';}
 };
