@@ -85,6 +85,7 @@ class Input extends React.PureComponent {
       <div>
         <div css={input_container_styles}>
           <input
+            name={this.props.name}
             css={[input_styles, this.state.error.enabled ? input_error_style : null]}
             type="text"
             value={this.state.value}
@@ -113,6 +114,8 @@ class Input extends React.PureComponent {
 };
 
 Input.propTypes = {
+  /** Name to be assigned to input field */
+  name: PropTypes.string.isRequired,
   /** Help text to be displayed below the input, can be used to convey the constraints on input */
   help_text: PropTypes.string,
   /** Show/Hide the input counter length, used with max_length property */
