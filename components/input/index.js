@@ -52,11 +52,27 @@ class Input extends React.PureComponent {
     });
   }
 
+  validateNumberInput(input) {
+    let int_input = parseFloat(input);
+
+    // Check works when the first input is not number.
+    if(isNaN(int_input)) {
+      return 'Only numbers allowed as input';
+    }
+
+    // Check works when first input is a number and post that there is a letter.
+    if(int_input.toString().length !== input.length) {
+      return 'Only numbers allowed as input';
+    }
+  }
+
   validateUserInput(input) {
     let error_state = {
       enabled: false,
       message: ''
     };
+
+    let type_error_msg;
 
     input = input.trim();
 
@@ -68,6 +84,17 @@ class Input extends React.PureComponent {
     if(this.props.min_length && input.length < this.props.min_length) {
       error_state.enabled = true;
       error_state.message = `Min. ${this.props.min_length} characters required`;
+    }
+
+    switch(this.props.type) {
+      case 'number':
+        type_error_msg = this.validateNumberInput(input);
+        break;
+    }
+
+    if(type_error_msg) {
+      error_state.enabled = true;
+      error_state.message = type_error_msg;
     }
 
     let custom_error_message = this.props.customValidation(input);
@@ -87,7 +114,7 @@ class Input extends React.PureComponent {
           <input
             name={this.props.name}
             css={[input_styles, this.state.error.enabled ? input_error_style : null]}
-            type="text"
+            type={this.props.type}
             value={this.state.value}
             placeholder={this.props.placeholder}
             onChange={this.handleUserInput.bind(this)}
@@ -117,6 +144,8 @@ class Input extends React.PureComponent {
 Input.propTypes = {
   /** Name to be assigned to input field */
   name: PropTypes.string.isRequired,
+  /* Type of input to be provided. Accepted values: text, number, email */
+  type: PropTypes.oneOf(['text', 'number', 'email']),
   /** Help text to be displayed below the input, can be used to convey the constraints on input */
   help_text: PropTypes.string,
   /** Show/Hide the input counter length, used with max_length property */
@@ -142,6 +171,7 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
+  type: 'text',
   help_text: '',
   show_text_counter: false,
   min_length: 0,

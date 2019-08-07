@@ -12,13 +12,13 @@ let InputStories = storiesOf('Components', module);
 InputStories.add('Input', () => (
   <MainContainer>
     <Section heading="Basic Input with default props and validations with auto focus">
-      <Input auto_focus={true} />
+      <Input auto_focus={true} handleOnInputBlur={() => {}}/>
     </Section>
     <Section heading="Input with help text">
-      <Input help_text="This is a Help text" />
+      <Input help_text="This is a Help text" handleOnInputBlur={() => {}}/>
     </Section>
     <Section heading="Input with help text and counter">
-      <Input help_text="This is a Help text" show_text_counter />
+      <Input help_text="This is a Help text" show_text_counter handleOnInputBlur={() => {}}/>
     </Section>
   </MainContainer>
 ));
