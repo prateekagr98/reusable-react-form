@@ -31,7 +31,7 @@ addDecorator(withPropsTable({
 
 
 // Fetch All Module stories
-const moduleStories = require.context('../modules', true, /\.story\.js$/);
+const moduleStories = require.context('../components', true, /\.story\.js$/);
 
 function loadStories() {
   moduleStories.keys().forEach(moduleStories);

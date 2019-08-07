@@ -7,7 +7,7 @@ import Section from '@decorators/section';
 
 import Input from './index';
 
-let InputStories = storiesOf('Modules', module);
+let InputStories = storiesOf('Components', module);
 
 InputStories.add('Input', () => (
   <MainContainer>
