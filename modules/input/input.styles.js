@@ -29,6 +29,7 @@ export let grid_styles = css`
   font-size: 12px;
   color: ${Colors.primaryDarkT2};
   padding: 4px 8px;
+  font-weight: bold;
 `;
 
 export let counter_styles = css`

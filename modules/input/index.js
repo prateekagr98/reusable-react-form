@@ -14,8 +14,8 @@ class Input extends React.PureComponent {
       counter: 0,
       value: '',
       error: {
-        enabled: false,
-        message: ''
+        enabled: Boolean(this.props.error_message),
+        message: this.props.error_message
       }
     }
   }
@@ -23,39 +23,61 @@ class Input extends React.PureComponent {
   handleUserInput(e) {
     let input = e.target.value.toString();
 
+    let error_state = this.validateUserInput(input);
+
+    this.props.handleOnInputChange({
+      value: input,
+      error: error_state
+    });
+
     this.setState({
       counter: input.length,
       value: input,
-      input_clear: !!input.trim().length
+      input_clear: !!input.trim().length,
+      error: error_state
     });
-
-    this.validateUserInput(input.trim());
   }
 
   handleOnBlur(e) {
-    let input = e.target.value.toString().trim();
-    this.validateUserInput(input);
+    let input = e.target.value.toString();
+    let error_state = this.validateUserInput(input);
+
+    this.props.handleOnInputBlur({
+      value: this.state.value,
+      error: error_state
+    });
+
+    this.setState({
+      error: error_state
+    });
   }
 
   validateUserInput(input) {
+    let error_state = {
+      enabled: false,
+      message: ''
+    };
 
-    if(this.props.min_length && input.length < this.props.min_length) {
-      this.setState({
-        error: {
-          enabled: true,
-          message: `Min. ${this.props.min_length} characters required`
-        }
-      });
+    input = input.trim();
 
-      return;
+    if(this.props.required && !input.length) {
+      error_state.enabled = true;
+      error_state.message = 'This is a mandatory field';
     }
 
-    this.setState({
-      error: {
-        enabled: false,
-        message: ''
-      }
-    });
+    if(this.props.min_length && input.length < this.props.min_length) {
+      error_state.enabled = true;
+      error_state.message = `Min. ${this.props.min_length} characters required`;
+    }
+
+    let custom_error_message = this.props.customValidation(input);
+
+    if(typeof custom_error_message === 'string' && custom_error_message.trim()) {
+      error_state.enabled = true;
+      error_state.message = custom_error_message;
+    }
+
+    return error_state;
   }
 
   render() {
@@ -70,12 +92,15 @@ class Input extends React.PureComponent {
             onChange={this.handleUserInput.bind(this)}
             onBlur={this.handleOnBlur.bind(this)}
             maxLength={this.props.max_length}
-            minLength={this.props.min_length} />
+            minLength={this.props.min_length}
+            required={this.props.required} />
         </div>
         <div>
-          <div css={[grid_styles, error_text_style]}>
+          <div css={[grid_styles, this.state.error.enabled ? error_text_style : null]}>
             {
-              this.state.error.enabled ? this.state.error.message : null
+              this.state.error.enabled ? this.state.error.message : (
+                this.props.help_text ? this.props.help_text : ''
+              )
             }
           </div>
           <div css={[grid_styles, counter_styles, this.state.error.enabled ? error_text_style : null]}>
@@ -88,23 +113,38 @@ class Input extends React.PureComponent {
 };
 
 Input.propTypes = {
-  left_icon_class: PropTypes.string,
-  right_icon_class: PropTypes.string,
+  /** Help text to be displayed below the input, can be used to convey the constraints on input */
   help_text: PropTypes.string,
+  /** Show/Hide the input counter length, used with max_length property */
   show_text_counter: PropTypes.bool,
+  /** Min. length of the input required */
   min_length: PropTypes.number,
+  /** Max. length of the input required */
   max_length: PropTypes.number,
-  placeholder: PropTypes.string
+  /** Placeholder for empty input */
+  placeholder: PropTypes.string,
+  /** Specifies if the input is mandatpry or not */
+  required: PropTypes.bool,
+  /** To pass custom error message, this will enable error state */
+  error_message: PropTypes.string,
+  /** Triggered on input change */
+  handleOnInputChange: PropTypes.func,
+  /** Triggered when user moves out of the input */
+  handleOnInputBlur: PropTypes.func.isRequired,
+  /** Triggered on input change, used to perform custom validations if required. Returns error string */
+  customValidation: PropTypes.func
 };
 
 Input.defaultProps = {
-  left_icon_class: '',
-  right_icon_class: '',
   help_text: '',
   show_text_counter: false,
-  min_length: 10,
+  min_length: 0,
   max_length: 100,
-  placeholder: 'Type here..'
+  placeholder: 'Type here..',
+  required: false,
+  error_message: '',
+  handleOnInputChange: () => {/* Empty func */},
+  customValidation: () => {return '';}
 };
 
 export default Input;

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const sectionStyles = {
-  paddingBottom: '64px'
+  paddingBottom: '24px'
 };
 
 const headingStyles = {

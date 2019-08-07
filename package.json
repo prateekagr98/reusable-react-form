@@ -13,7 +13,8 @@
     "@storybook/addons": "^5.1.10",
     "@storybook/react": "^5.1.10",
     "@storybook/theming": "^5.1.10",
-    "babel-loader": "^8.0.6"
+    "babel-loader": "^8.0.6",
+    "storybook-addon-react-docgen": "^1.2.2"
   },
   "dependencies": {
     "@emotion/babel-preset-css-prop": "^10.0.14",

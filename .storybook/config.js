@@ -1,5 +1,6 @@
-import { configure, addParameters } from '@storybook/react';
+import { configure, addParameters, addDecorator } from '@storybook/react';
 import { create } from '@storybook/theming';
+import { withPropsTable } from 'storybook-addon-react-docgen';
 
 const custom_theme = create({
   base: 'light',
@@ -16,13 +17,17 @@ addParameters({
   options: {
     enableShortcuts: false,
     showPanel: true,
-    panelPosition: 'right',
+    panelPosition: 'bottom',
     theme: custom_theme
   },
   readme: {
     codeTheme: 'github'
   }
 });
+
+addDecorator(withPropsTable({
+  propTablesExclude: ["MainContainer", "Section"]
+}));
 
 
 // Fetch All Module stories
