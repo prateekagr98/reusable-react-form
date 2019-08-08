@@ -4,6 +4,7 @@ import { storiesOf } from '@storybook/react';
 
 import MainContainer from '@decorators/main_container';
 import Section from '@decorators/section';
+import InfoBox from '@decorators/info_box';
 
 import Input from './index';
 
@@ -18,7 +19,53 @@ InputStories.add('Input', () => (
       <Input help_text="This is a Help text" handleOnInputBlur={() => {}}/>
     </Section>
     <Section heading="Input with help text and counter">
-      <Input help_text="This is a Help text" show_text_counter handleOnInputBlur={() => {}}/>
+      <InfoBox>
+        Displayes help text and counter. Default value of max characters is 100.
+        Trailing spaces are excluded from validation. Counter is only available on type text and email.
+      </InfoBox>
+      <Input help_text="This is a Help text" handleOnInputBlur={() => {}} show_text_counter />
+    </Section>
+    <Section heading="Input with min and max length">
+      <InfoBox>
+        Entering less than 10 characters will throw an error. However since this is not a required field
+        hence moving out of the input will not throw any error.
+      </InfoBox>
+      <Input
+        help_text="Should be atleast 10 characters"
+        min_length={10}
+        max_length={50}
+        handleOnInputBlur={() => {}}
+        show_text_counter />
+    </Section>
+    <Section heading="Required Input">
+      <InfoBox>
+        This is a required input field. Focusing on the input and moving out will throw away an error.
+      </InfoBox>
+      <Input
+        help_text="This is a mandatory field"
+        handleOnInputBlur={() => {}}
+        show_text_counter
+        required />
+    </Section>
+    <Section heading="Number Input">
+      <InfoBox>
+        This input only accepts numbers. However entering a number greater than the Float range will throw error
+      </InfoBox>
+      <Input
+        type="number"
+        help_text="Input can only be numbers"
+        handleOnInputBlur={() => {}} />
+    </Section>
+    <Section heading="Email Input">
+      <InfoBox>
+        This input only accepts valid emails. Emails are verified agains validations on HTML input type.
+      </InfoBox>
+      <Input
+        type="email"
+        max_length={20}
+        help_text="Input can only be an email"
+        handleOnInputBlur={() => {}}
+        show_text_counter />
     </Section>
   </MainContainer>
 ));

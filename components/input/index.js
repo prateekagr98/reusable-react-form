@@ -152,7 +152,7 @@ class Input extends React.PureComponent {
             }
           </div>
           <div css={[grid_styles, counter_styles, this.state.error.enabled ? error_text_style : null]}>
-            {this.props.show_text_counter ? `${this.state.counter}/${this.props.max_length}` : ''}
+            {this.props.show_text_counter && this.props.type !== 'number' ? `${this.state.counter}/${this.props.max_length}` : ''}
           </div>
         </div>
       </div>
