@@ -2,14 +2,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class Select extends React.Component {
+import '../../styles/fonts.css';
 
-  render() {
+import SingleSelect from './single_select';
 
-    return (
-      <h1>select dropdown</h1>
-    );
-  }
+const Select = (props) => (
+  <div>
+    {
+      !props.allow_multiple ? <SingleSelect {...props} /> : null
+    }
+  </div>
+);
+
+Select.propTypes = {
+  allow_multiple: PropTypes.bool
+};
+
+Select.defaultProps = {
+  allow_multiple: false
 };
 
 export default Select;
