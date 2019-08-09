@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import Dropdown from './dropdown';
 import OptionTypes from './option_types';
 
-import { style_container_styles, input_styles, help_text_styles } from './single_select.styles';
+import { help_text_styles } from './select_common.styles';
+import { style_container_styles, input_styles } from './single_select.styles';
 
 class SingleSelect extends React.PureComponent {
 

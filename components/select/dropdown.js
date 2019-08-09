@@ -7,7 +7,7 @@ import NonActionOption from './non_action_option';
 
 import OptionTypes from './option_types';
 
-import { dropdown_container_styles } from './single_select.styles';
+import { dropdown_container_styles } from './select_common.styles';
 
 const Dropdown = (props) => (
   <div css={dropdown_container_styles}>

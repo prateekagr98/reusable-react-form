@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { dropdown_option_styles, actionable_option_styles } from './single_select.styles';
+import { dropdown_option_styles, actionable_option_styles } from './select_common.styles';
 
 const DropdownOption = (props) => {
 
