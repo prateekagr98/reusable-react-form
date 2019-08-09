@@ -2,10 +2,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { dropdown_option_styles } from './single_select.styles';
+import { dropdown_option_styles, actionable_option_styles } from './single_select.styles';
 
-const DropdownOption = (props) => (
-  <div css={dropdown_option_styles}>{props.label}</div>
-);
+const DropdownOption = (props) => {
+
+  let onOptionClickHandler = function(ev) {
+    ev.stopPropagation();
+    props.onOptionClick(props.value);
+  }
+
+  return (
+  <div css={[dropdown_option_styles, actionable_option_styles]} onClick={onOptionClickHandler}>{props.label}</div>
+)};
+
+DropdownOption.propTypes = {
+  label: PropTypes.string,
+  value: PropTypes.string,
+  onOptionClick: PropTypes.func
+}
 
 export default DropdownOption;
