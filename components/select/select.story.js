@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react';
 import MainContainer from '@decorators/main_container';
 import Section from '@decorators/section';
 
-import Select from './index';
+import SingleSelect from './single_select';
 
 const options = [
   {
@@ -34,12 +34,12 @@ const options = [
   }
 ];
 
-let SelectStories = storiesOf('Components', module);
+let SelectStories = storiesOf('Components/Select', module);
 
-SelectStories.add('Select', () => (
+SelectStories.add('Single Select', () => (
   <MainContainer>
     <Section heading="Basic Select">
-      <Select options={options} help_text="This is the Help Text" />
+      <SingleSelect options={options} help_text="This is the Help Text" />
     </Section>
   </MainContainer>
 ));

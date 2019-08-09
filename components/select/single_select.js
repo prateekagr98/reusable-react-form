@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Dropdown from './dropdown';
 import OptionTypes from './option_types';
 
-import { help_text_styles } from './select_common.styles';
+import { help_text_styles, error_text_style, input_error_style } from './select_common.styles';
 import { style_container_styles, input_styles } from './single_select.styles';
 
 class SingleSelect extends React.PureComponent {
@@ -17,7 +17,11 @@ class SingleSelect extends React.PureComponent {
       open_dropdown: false,
       value: '',
       options: props.options,
-      selected_option: null
+      selected_option: null,
+      error: {
+        enabled: Boolean(this.props.error_message),
+        message: this.props.error_message
+      }
     };
 
     this.myRef = React.createRef();
@@ -55,6 +59,7 @@ class SingleSelect extends React.PureComponent {
       }
 
       this.setState(new_state);
+      this.validateSelect();
     }
   }
 
@@ -79,11 +84,20 @@ class SingleSelect extends React.PureComponent {
       });
     }
 
-    this.setState({
+    let updated_state = {
       value: input_text,
       options: filtered_options,
       selected_option: null
-    });
+    };
+
+    if(this.state.error.enabled) {
+      updated_state.error = {
+        enabled: false,
+        message: ''
+      }
+    }
+
+    this.setState(updated_state);
 
   }
 
@@ -111,6 +125,17 @@ class SingleSelect extends React.PureComponent {
     this.myRef = element;
   }
 
+  validateSelect() {
+    if(this.props.required && !this.state.value) {
+      this.setState({
+        error: {
+          enabled: true,
+          message: 'This is a required field'
+        }
+      });
+    }
+  }
+
   render() {
 
     return (
@@ -118,21 +143,27 @@ class SingleSelect extends React.PureComponent {
         <input
           type="text"
           placeholder={this.props.placeholder}
-          css={input_styles}
+          css={[input_styles, this.state.error.enabled ? input_error_style : null]}
           value={this.state.value}
           onClick={this.toggleDropdown.bind(this, undefined)}
-          onChange={this.filterOptions.bind(this)} />
+          onChange={this.filterOptions.bind(this)}
+          required={this.props.required} />
         {
           this.state.open_dropdown ? (
             <Dropdown options={this.state.options} onOptionClick={this.handleOptionSelect.bind(this)} />
           ) : null
         }
         {
-          this.props.help_text ? (
+          this.state.error.enabled ? (
+            <div css={[help_text_styles, error_text_style]}>
+              {this.state.error.message}
+            </div>
+          ) : this.props.help_text ? (
             <div css={help_text_styles}>
               {this.props.help_text}
             </div>
           ) : null
+          
         }
       </div>
     )
@@ -142,12 +173,16 @@ class SingleSelect extends React.PureComponent {
 SingleSelect.propTypes = {
   options: PropTypes.array.isRequired,
   placeholder: PropTypes.string,
-  help_text: PropTypes.string
+  help_text: PropTypes.string,
+  required: PropTypes.bool,
+  error_message: PropTypes.string
 };
 
 SingleSelect.defaultProps = {
   placeholder: 'Type to search..',
-  help_text: ''
+  help_text: '',
+  required: true,
+  error_message: ''
 };
 
 export default SingleSelect;

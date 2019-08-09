@@ -35,3 +35,11 @@ export let help_text_styles = css`
   padding: 4px 8px;
   font-weight: bold;
 `;
+
+export let error_text_style = css`
+  color: ${Colors.secondaryRed};
+`;
+
+export let input_error_style = css`
+  border-color: ${Colors.secondaryRed};
+`;
