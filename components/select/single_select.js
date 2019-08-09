@@ -119,6 +119,10 @@ class SingleSelect extends React.PureComponent {
     }
 
     this.setState(target_state);
+    this.props.handleOnOptionSelection({
+      selection: selected_option[0],
+      error: this.state.error
+    });
   }
 
   createDOMRef(element) {
@@ -175,14 +179,16 @@ SingleSelect.propTypes = {
   placeholder: PropTypes.string,
   help_text: PropTypes.string,
   required: PropTypes.bool,
-  error_message: PropTypes.string
+  error_message: PropTypes.string,
+  handleOnOptionSelection: PropTypes.func
 };
 
 SingleSelect.defaultProps = {
   placeholder: 'Type to search..',
   help_text: '',
   required: true,
-  error_message: ''
+  error_message: '',
+  handleOnOptionSelection: () => {/* Empty func */}
 };
 
 export default SingleSelect;
