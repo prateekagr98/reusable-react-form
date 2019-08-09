@@ -58,8 +58,21 @@ class SingleSelect extends React.PureComponent {
         new_state.value = '';
       }
 
-      this.setState(new_state);
-      this.validateSelect();
+      let validation_message = this.validateSelect();
+
+      if(validation_message) {
+        new_state.error = {
+          enabled: true,
+          message: validation_message
+        };
+      }
+
+      this.setState(new_state, () => {
+        this.props.handleOnOptionSelection({
+          selection: this.state.selected_option,
+          error: this.state.error
+        });
+      });
     }
   }
 
@@ -104,7 +117,11 @@ class SingleSelect extends React.PureComponent {
   handleOptionSelect(option) {
     let value = '';
     let target_state = {
-      open_dropdown: false
+      open_dropdown: false,
+      error: {
+        enabled: false,
+        message: ''
+      }
     };
 
     // In case of clicking outside the option won't be passed
@@ -118,10 +135,11 @@ class SingleSelect extends React.PureComponent {
       }
     }
 
-    this.setState(target_state);
-    this.props.handleOnOptionSelection({
-      selection: selected_option[0],
-      error: this.state.error
+    this.setState(target_state, () => {
+      this.props.handleOnOptionSelection({
+        selection: this.state.selected_option,
+        error: this.state.error
+      });
     });
   }
 
@@ -131,13 +149,10 @@ class SingleSelect extends React.PureComponent {
 
   validateSelect() {
     if(this.props.required && !this.state.value) {
-      this.setState({
-        error: {
-          enabled: true,
-          message: 'This is a required field'
-        }
-      });
+      return 'This is a required field';
     }
+
+    return '';
   }
 
   render() {

@@ -17,7 +17,7 @@ const Dropdown = (props) => (
           
           case OptionTypes.NO_ACTION:
             return (
-              <NonActionOption {...item} />
+              <NonActionOption key="no action" {...item} />
             );
             break;
           
