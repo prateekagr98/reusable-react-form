@@ -224,7 +224,7 @@ SingleSelect.propTypes = {
 SingleSelect.defaultProps = {
   placeholder: 'Type to search..',
   help_text: '',
-  required: true,
+  required: false,
   error_message: '',
   value: '',
   is_creatable: false,
