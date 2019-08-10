@@ -16,7 +16,7 @@ class MultiSelect extends React.Component {
     this.state = {
       is_open_dropdown: false,
       options: props.options,
-      selected_options: []
+      selected_options: props.pre_selection
     };
 
     this.containerRef = null;
@@ -62,8 +62,25 @@ class MultiSelect extends React.Component {
 
   onSelectInputClick(ev) {
     this.inputRef && this.inputRef.focus();
+
+    let updated_options = Object.assign([], this.state.options);
+
+    if(this.state.selected_options.length) {
+      let selected_values = this.state.selected_options.map((item) => item.value);
+      updated_options = updated_options.filter((item) => selected_values.indexOf(item.value) === -1 );
+    }
+
+    if(!updated_options.length) {
+      updated_options.push({
+        label: 'No Options available',
+        value: 'No Options available',
+        type: OptionTypes.NO_ACTION
+      });
+    }
+
     this.setState({
-      is_open_dropdown: !this.state.is_open_dropdown
+      is_open_dropdown: !this.state.is_open_dropdown,
+      options: updated_options
     });
   }
 
@@ -165,9 +182,12 @@ class MultiSelect extends React.Component {
 };
 
 MultiSelect.propTypes = {
-  options: PropTypes.array
+  options: PropTypes.array,
+  pre_selection: PropTypes.array
 };
 
-
+MultiSelect.defaultProps = {
+  pre_selection: []
+};
 
 export default MultiSelect;
