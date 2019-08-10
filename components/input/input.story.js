@@ -12,7 +12,7 @@ let InputStories = storiesOf('Components', module);
 
 InputStories.add('Input', () => (
   <MainContainer>
-    <Section heading="Basic Input with default props and validations with auto focus">
+    <Section heading="Basic Text Input with default props and validations with auto focus">
       <Input auto_focus={true} handleOnInputBlur={() => {}}/>
     </Section>
     <Section heading="Input with help text">
@@ -24,6 +24,26 @@ InputStories.add('Input', () => (
         Trailing spaces are excluded from validation. Counter is only available on type text and email.
       </InfoBox>
       <Input help_text="This is a Help text" handleOnInputBlur={() => {}} show_text_counter />
+    </Section>
+    <Section heading="Number Input">
+      <InfoBox>
+        This input only accepts numbers. However entering a number greater than the Float range will throw error
+      </InfoBox>
+      <Input
+        type="number"
+        help_text="Input can only be numbers"
+        handleOnInputBlur={() => {}} />
+    </Section>
+    <Section heading="Email Input">
+      <InfoBox>
+        This input only accepts valid emails. Emails are verified agains validations on HTML input type.
+      </InfoBox>
+      <Input
+        type="email"
+        max_length={20}
+        help_text="Input can only be an email"
+        handleOnInputBlur={() => {}}
+        show_text_counter />
     </Section>
     <Section heading="Input with min and max length">
       <InfoBox>
@@ -67,26 +87,6 @@ InputStories.add('Input', () => (
         help_text="Fixed input value"
         handleOnInputBlur={() => {}}
         customValidation={(input) => (input !== 'tom and jerry' ? 'Text should be tom and jerry' : '')}
-        show_text_counter />
-    </Section>
-    <Section heading="Number Input">
-      <InfoBox>
-        This input only accepts numbers. However entering a number greater than the Float range will throw error
-      </InfoBox>
-      <Input
-        type="number"
-        help_text="Input can only be numbers"
-        handleOnInputBlur={() => {}} />
-    </Section>
-    <Section heading="Email Input">
-      <InfoBox>
-        This input only accepts valid emails. Emails are verified agains validations on HTML input type.
-      </InfoBox>
-      <Input
-        type="email"
-        max_length={20}
-        help_text="Input can only be an email"
-        handleOnInputBlur={() => {}}
         show_text_counter />
     </Section>
   </MainContainer>
