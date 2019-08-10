@@ -47,6 +47,28 @@ InputStories.add('Input', () => (
         show_text_counter
         required />
     </Section>
+    <Section heading="Input with custom error message">
+      <InfoBox>
+        This input is shown with a custom error message.
+      </InfoBox>
+      <Input
+        type="text"
+        help_text="Error shown at start"
+        handleOnInputBlur={() => {}}
+        error_message="This is a custom error"
+        show_text_counter />
+    </Section>
+    <Section heading="Input with custom validation">
+      <InfoBox>
+        This input throws error if input is not "tom and jerry".
+      </InfoBox>
+      <Input
+        type="text"
+        help_text="Fixed input value"
+        handleOnInputBlur={() => {}}
+        customValidation={(input) => (input !== 'tom and jerry' ? 'Text should be tom and jerry' : '')}
+        show_text_counter />
+    </Section>
     <Section heading="Number Input">
       <InfoBox>
         This input only accepts numbers. However entering a number greater than the Float range will throw error

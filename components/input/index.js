@@ -10,7 +10,6 @@ class Input extends React.PureComponent {
     super(props);
 
     this.state = {
-      input_clear: false,
       counter: 0,
       value: '',
       error: {
@@ -18,6 +17,23 @@ class Input extends React.PureComponent {
         message: this.props.error_message
       }
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let updated_state = {};
+
+    if(nextProps.error_message) {
+      updated_state.error = {
+        enabled: true,
+        message: nextProps.error_message
+      }
+    }
+
+    if(nextProps.value && nextProps.value !== this.state.value) {
+      updated_state.value = nextProps.value;
+    }
+
+    this.setState(updated_state);
   }
 
   handleUserInput(e) {
@@ -33,7 +49,6 @@ class Input extends React.PureComponent {
     this.setState({
       counter: input.length,
       value: input,
-      input_clear: !!input.trim().length,
       error: error_state
     });
   }
