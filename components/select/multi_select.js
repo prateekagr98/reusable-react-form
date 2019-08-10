@@ -59,7 +59,7 @@ class MultiSelect extends React.Component {
     let isOwnNode = this.containerRef && this.containerRef.contains(ev.target);
 
     if(this.state.is_open_dropdown && !isOwnNode) {
-      this.setState({
+      this.updateState({
         is_open_dropdown: false
       });
     }
@@ -68,22 +68,14 @@ class MultiSelect extends React.Component {
   onSelectInputClick(ev) {
     this.inputRef && this.inputRef.focus();
 
-    let updated_options = Object.assign([], this.state.options);
+    let updated_options = Object.assign([], this.props.options);
 
     if(this.state.selected_options.length) {
       let selected_values = this.state.selected_options.map((item) => item.value);
       updated_options = updated_options.filter((item) => selected_values.indexOf(item.value) === -1 );
     }
 
-    if(!updated_options.length) {
-      updated_options.push({
-        label: 'No Options available',
-        value: 'No Options available',
-        type: OptionTypes.NO_ACTION
-      });
-    }
-
-    this.setState({
+    this.updateState({
       is_open_dropdown: !this.state.is_open_dropdown,
       options: updated_options
     });
@@ -100,14 +92,6 @@ class MultiSelect extends React.Component {
 
     filtered_options = filtered_options.filter((item) => selected_values.indexOf(item.value) === -1);
 
-    if(!filtered_options.length) {
-      filtered_options.push({
-        label: 'No Options available',
-        value: 'No Options available',
-        type: OptionTypes.NO_ACTION
-      });
-    }
-
     let updated_state = {
       options: filtered_options
     };
@@ -116,22 +100,14 @@ class MultiSelect extends React.Component {
       updated_state.is_open_dropdown = true;
     }
 
-    this.setState(updated_state);
+    this.updateState(updated_state);
   }
 
   handleOptionSelect(selection) {
 
     let updated_options = this.state.options.filter((item) => item.value !== selection.value);
 
-    if(!updated_options.length) {
-      updated_options.push({
-        label: 'No Options available',
-        value: 'No Options available',
-        type: OptionTypes.NO_ACTION
-      });
-    }
-
-    this.setState({
+    this.updateState({
       options: updated_options,
       selected_options: [...this.state.selected_options, selection]
     });
@@ -154,10 +130,34 @@ class MultiSelect extends React.Component {
 
   removeSelection(selection) {
 
-    this.setState({
+    this.updateState({
       options: [...this.state.options, selection],
       selected_options: this.state.selected_options.filter((item) => item.value !== selection.value)
     });
+  }
+
+  updateState(target_state) {
+
+    let new_state = Object.assign({}, target_state);
+
+    new_state.options = new_state.options || this.state.options;
+
+    // Filter selection from the displayed options
+    if(this.state.selected_options.length) {
+      let selected_values = this.state.selected_options.map((item) => item.value);
+      new_state.options = new_state.options.filter((item) => selected_values.indexOf(item.value) === -1);
+    }
+
+    // Add No Options text if after filtering there are no options left
+    if(new_state.options.length) {
+      new_state.options.push({
+        label: 'No Options available',
+        value: 'No Options available',
+        type: OptionTypes.NO_ACTION
+      });
+    }
+
+    this.setState(new_state);
   }
  
   render() {
