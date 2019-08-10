@@ -183,11 +183,19 @@ class MultiSelect extends React.Component {
     }
 
     // Add No Options text if after filtering there are no options left
-    if(!new_state.options.length) {
+    if(!new_state.options.length && !this.props.is_creatable) {
       new_state.options.push({
         label: 'No Options available',
         value: 'No Options available',
         type: OptionTypes.NO_ACTION
+      });
+    }
+
+    if(!new_state.options.length && this.props.is_creatable) {
+      new_state.options.push({
+        label: this.inputRef.value,
+        value: this.inputRef.value,
+        type: OptionTypes.CREATE
       });
     }
 
@@ -250,13 +258,15 @@ MultiSelect.propTypes = {
       ]).isRequired
   })),
   help_text: PropTypes.string,
+  is_creatable: PropTypes.bool,
   required: PropTypes.bool
 };
 
 MultiSelect.defaultProps = {
   pre_selection: [],
   help_text: '',
-  required: false
+  required: false,
+  is_creatable: false
 };
 
 export default MultiSelect;

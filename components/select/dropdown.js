@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import DropdownOption from './dropdown_option';
 import NonActionOption from './non_action_option';
+import CreateNewOption from './create_new_option';
 
 import OptionTypes from './option_types';
 
@@ -18,6 +19,15 @@ const Dropdown = (props) => (
           case OptionTypes.NO_ACTION:
             return (
               <NonActionOption key="no action" {...item} />
+            );
+            break;
+
+          case OptionTypes.CREATE:
+            return (
+              <CreateNewOption
+                key={item.value}
+                onOptionClick={props.onOptionClick}
+                {...item} />
             );
             break;
           

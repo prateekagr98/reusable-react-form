@@ -1,5 +1,6 @@
 
 export default {
   'OPTION': 'OPTION',
-  'NO_ACTION': 'NO ACTION'
+  'NO_ACTION': 'NO ACTION',
+  'CREATE': 'CREATE'
 };

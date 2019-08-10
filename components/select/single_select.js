@@ -100,11 +100,19 @@ class SingleSelect extends React.PureComponent {
 
     let filtered_options = this.props.options.filter((item) => item.label.toLowerCase().indexOf(searched_text) !== -1);
 
-    if(!filtered_options.length) {
+    if(!filtered_options.length && !this.props.is_creatable) {
       filtered_options.push({
         label: 'No Options available',
         value: 'No Options available',
         type: OptionTypes.NO_ACTION
+      });
+    }
+
+    if(!filtered_options.length && this.props.is_creatable) {
+      filtered_options.push({
+        label: searched_text,
+        value: searched_text,
+        type: OptionTypes.CREATE
       });
     }
 
@@ -209,6 +217,7 @@ SingleSelect.propTypes = {
   required: PropTypes.bool,
   value: PropTypes.string,
   error_message: PropTypes.string,
+  is_creatable: PropTypes.bool,
   handleOnOptionSelection: PropTypes.func
 };
 
@@ -218,6 +227,7 @@ SingleSelect.defaultProps = {
   required: true,
   error_message: '',
   value: '',
+  is_creatable: false,
   handleOnOptionSelection: () => {/* Empty func */}
 };
 
