@@ -14,11 +14,23 @@ class SingleSelect extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    let initial_selection = null;
+
+    if(props.value) {
+      initial_selection = props.options.filter((item) => item.value === props.value);
+
+      if(initial_selection.length) {
+        initial_selection = initial_selection[0];
+      } else {
+        initial_selection = null;
+      }
+    }
+
     this.state = {
       open_dropdown: false,
-      value: '',
+      value: initial_selection && initial_selection.label || '',
       options: props.options,
-      selected_option: null,
+      selected_option: initial_selection,
       error: {
         enabled: Boolean(this.props.error_message),
         message: this.props.error_message
@@ -188,6 +200,7 @@ SingleSelect.propTypes = {
   placeholder: PropTypes.string,
   help_text: PropTypes.string,
   required: PropTypes.bool,
+  value: PropTypes.string,
   error_message: PropTypes.string,
   handleOnOptionSelection: PropTypes.func
 };
@@ -197,6 +210,7 @@ SingleSelect.defaultProps = {
   help_text: '',
   required: true,
   error_message: '',
+  value: '',
   handleOnOptionSelection: () => {/* Empty func */}
 };
 

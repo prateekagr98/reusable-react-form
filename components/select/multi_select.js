@@ -242,7 +242,7 @@ MultiSelect.propTypes = {
 MultiSelect.defaultProps = {
   pre_selection: [],
   help_text: '',
-  required: true
+  required: false
 };
 
 export default MultiSelect;

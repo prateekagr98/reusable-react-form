@@ -40,7 +40,16 @@ let SelectStories = storiesOf('Components/Select', module);
 SelectStories.add('Single Select', () => (
   <MainContainer>
     <Section heading="Basic Select">
-      <SingleSelect options={options} help_text="This is the Help Text" />
+      <SingleSelect options={options} />
+    </Section>
+    <Section heading="Select with help text">
+      <SingleSelect options={options} help_text="This is a Help Text" />
+    </Section>
+    <Section heading="Mandatory Select">
+      <SingleSelect options={options} help_text="This is a Help Text" required />
+    </Section>
+    <Section heading="Select with initial value">
+      <SingleSelect options={options} help_text="This is a Help Text" value="blueberry" />
     </Section>
   </MainContainer>
 ));
@@ -50,6 +59,15 @@ SelectStories.add('Multi Select', () => (
   <MainContainer>
     <Section heading="Basic Multi Select">
       <MultiSelect options={options} />
+    </Section>
+    <Section heading="Multi Select with Help text">
+      <MultiSelect options={options} help_text="This is a Help Text" />
+    </Section>
+    <Section heading="Mandatory Multi Select">
+      <MultiSelect options={options} help_text="This is a Help Text" required />
+    </Section>
+    <Section heading="Multi Select with initial selection">
+      <MultiSelect options={options} help_text="This is a Help Text" pre_selection={[options[0], options[3]]} />
     </Section>
   </MainContainer>
 ));
