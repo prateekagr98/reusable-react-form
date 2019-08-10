@@ -6,6 +6,7 @@ import Dropdown from './dropdown';
 import OptionTypes from './option_types';
 
 import '../../styles/fonts.css';
+import { help_text_styles, error_text_style, input_error_style } from './select_common.styles';
 import { style_container_styles, select_input_styles, input_styles, selected_option_styles } from './multi_select.styles';
 
 class MultiSelect extends React.Component {
@@ -16,7 +17,11 @@ class MultiSelect extends React.Component {
     this.state = {
       is_open_dropdown: false,
       options: props.options,
-      selected_options: props.pre_selection
+      selected_options: props.pre_selection,
+      error: {
+        enabled: false,
+        message: ''
+      }
     };
 
     this.containerRef = null;
@@ -159,7 +164,7 @@ class MultiSelect extends React.Component {
     return (
       <div css={style_container_styles} ref={this.createContainerRef.bind(this)}>
         <div
-          css={select_input_styles}
+          css={[select_input_styles, this.state.error.enabled ? input_error_style : null]}
           onClick={this.onSelectInputClick.bind(this)} >
           {this.fetchMultiSelectionsLayout()}
           <input
@@ -176,6 +181,18 @@ class MultiSelect extends React.Component {
               onOptionClick={this.handleOptionSelect.bind(this)} />
           ) : null 
         }
+        {
+          this.state.error.enabled ? (
+            <div css={[help_text_styles, error_text_style]}>
+              {this.state.error.message}
+            </div>
+          ) : this.props.help_text ? (
+            <div css={help_text_styles}>
+              {this.props.help_text}
+            </div>
+          ) : null
+          
+        }
       </div>
     )
   }
@@ -183,11 +200,13 @@ class MultiSelect extends React.Component {
 
 MultiSelect.propTypes = {
   options: PropTypes.array,
-  pre_selection: PropTypes.array
+  pre_selection: PropTypes.array,
+  help_text: PropTypes.string
 };
 
 MultiSelect.defaultProps = {
-  pre_selection: []
+  pre_selection: [],
+  help_text: ''
 };
 
 export default MultiSelect;
