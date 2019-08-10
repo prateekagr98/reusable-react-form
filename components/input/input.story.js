@@ -1,6 +1,9 @@
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+
+import ReadMe from './README.md';
 
 import MainContainer from '@decorators/main_container';
 import Section from '@decorators/section';
@@ -8,22 +11,30 @@ import InfoBox from '@decorators/info_box';
 
 import Input from './index';
 
-let InputStories = storiesOf('Components', module);
+let InputStories = storiesOf('Components', module)
+  .addParameters({
+    readme: {
+      sidebar: ReadMe
+    }
+  });
 
 InputStories.add('Input', () => (
   <MainContainer>
     <Section heading="Basic Text Input with default props and validations with auto focus">
-      <Input auto_focus={true} handleOnInputBlur={() => {}}/>
+      <Input
+        auto_focus={true}
+        handleOnInputBlur={action('Basic Input: On Input Blur')}
+        handleOnInputChange={action('Basic Input: On Input Change')}/>
     </Section>
     <Section heading="Input with help text">
-      <Input help_text="This is a Help text" handleOnInputBlur={() => {}}/>
+      <Input help_text="This is a Help text" />
     </Section>
     <Section heading="Input with help text and counter">
       <InfoBox>
         Displayes help text and counter. Default value of max characters is 100.
         Trailing spaces are excluded from validation. Counter is only available on type text and email.
       </InfoBox>
-      <Input help_text="This is a Help text" handleOnInputBlur={() => {}} show_text_counter />
+      <Input help_text="This is a Help text" show_text_counter />
     </Section>
     <Section heading="Number Input">
       <InfoBox>
@@ -31,8 +42,7 @@ InputStories.add('Input', () => (
       </InfoBox>
       <Input
         type="number"
-        help_text="Input can only be numbers"
-        handleOnInputBlur={() => {}} />
+        help_text="Input can only be numbers" />
     </Section>
     <Section heading="Email Input">
       <InfoBox>
@@ -42,7 +52,6 @@ InputStories.add('Input', () => (
         type="email"
         max_length={20}
         help_text="Input can only be an email"
-        handleOnInputBlur={() => {}}
         show_text_counter />
     </Section>
     <Section heading="Input with min and max length">
@@ -54,7 +63,6 @@ InputStories.add('Input', () => (
         help_text="Should be atleast 10 characters"
         min_length={10}
         max_length={50}
-        handleOnInputBlur={() => {}}
         show_text_counter />
     </Section>
     <Section heading="Required Input">
@@ -63,7 +71,6 @@ InputStories.add('Input', () => (
       </InfoBox>
       <Input
         help_text="This is a mandatory field"
-        handleOnInputBlur={() => {}}
         show_text_counter
         required />
     </Section>
@@ -74,7 +81,6 @@ InputStories.add('Input', () => (
       <Input
         type="text"
         help_text="Error shown at start"
-        handleOnInputBlur={() => {}}
         error_message="This is a custom error"
         show_text_counter />
     </Section>
@@ -85,7 +91,6 @@ InputStories.add('Input', () => (
       <Input
         type="text"
         help_text="Fixed input value"
-        handleOnInputBlur={() => {}}
         customValidation={(input) => (input !== 'tom and jerry' ? 'Text should be tom and jerry' : '')}
         show_text_counter />
     </Section>

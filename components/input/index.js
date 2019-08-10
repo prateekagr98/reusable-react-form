@@ -199,7 +199,7 @@ Input.propTypes = {
   /** Triggered on input change */
   handleOnInputChange: PropTypes.func,
   /** Triggered when user moves out of the input */
-  handleOnInputBlur: PropTypes.func.isRequired,
+  handleOnInputBlur: PropTypes.func,
   /** Triggered on input change, used to perform custom validations if required. Returns error string */
   customValidation: PropTypes.func
 };
@@ -215,6 +215,7 @@ Input.defaultProps = {
   error_message: '',
   auto_focus: false,
   handleOnInputChange: () => {/* Empty func */},
+  handleOnInputBlur: () => {/* Empty func */},
   customValidation: () => {return '';}
 };
 

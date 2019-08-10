@@ -1,5 +1,6 @@
 import { configure, addParameters, addDecorator } from '@storybook/react';
 import { create } from '@storybook/theming';
+import { addReadme } from 'storybook-readme';
 import { withPropsTable } from 'storybook-addon-react-docgen';
 
 const custom_theme = create({
@@ -25,9 +26,15 @@ addParameters({
   }
 });
 
+
+/**********************************
+            Decorators
+**********************************/
+
 addDecorator(withPropsTable({
-  propTablesExclude: ["MainContainer", "Section"]
+  propTablesExclude: ["MainContainer", "Section", "InfoBox"]
 }));
+addDecorator(addReadme);
 
 
 // Fetch All Module stories

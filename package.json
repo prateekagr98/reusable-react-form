@@ -10,11 +10,13 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.5.5",
+    "@storybook/addon-actions": "^5.1.10",
     "@storybook/addons": "^5.1.10",
     "@storybook/react": "^5.1.10",
     "@storybook/theming": "^5.1.10",
     "babel-loader": "^8.0.6",
-    "storybook-addon-react-docgen": "^1.2.2"
+    "storybook-addon-react-docgen": "^1.2.2",
+    "storybook-readme": "^5.0.6"
   },
   "dependencies": {
     "@emotion/babel-preset-css-prop": "^10.0.14",

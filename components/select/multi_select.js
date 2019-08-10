@@ -75,10 +75,12 @@ class MultiSelect extends React.PureComponent {
     this.updateState(updated_state);
   }
 
-  validateSelection() {
+  validateSelection(selections = null) {
     let message = '';
 
-    if(this.props.required && !this.state.selected_options.length) {
+    let user_selection = selections || this.state.selected_options;
+
+    if(this.props.required && !user_selection.length) {
       message = 'This is a required field';
     }
 
@@ -136,6 +138,14 @@ class MultiSelect extends React.PureComponent {
 
     let updated_options = this.state.options.filter((item) => item.value !== selection.value);
 
+    this.props.handleOnOptionSelection({
+      selection: [...this.state.selected_options, selection],
+      error: {
+        enabled: false,
+        message: ''
+      }
+    });
+
     this.updateState({
       options: updated_options,
       selected_options: [...this.state.selected_options, selection],
@@ -162,10 +172,30 @@ class MultiSelect extends React.PureComponent {
   }
 
   removeSelection(selection) {
+    let user_selection = this.state.selected_options.filter((item) => item.value !== selection.value);
+
     let updated_state = {
       options: [...this.state.options, selection],
-      selected_options: this.state.selected_options.filter((item) => item.value !== selection.value)
+      selected_options: user_selection,
+      error: {
+        enabled: false,
+        message: ''
+      }
     };
+
+    let error_message = this.validateSelection(user_selection);
+
+    if(error_message) {
+      updated_state.error = {
+        enabled: true,
+        message: error_message
+      };
+    }
+
+    this.props.handleOnOptionRemove({
+      user_selection,
+      error: updated_state.error
+    })
 
     this.updateState(updated_state);
   }
@@ -259,14 +289,18 @@ MultiSelect.propTypes = {
   })),
   help_text: PropTypes.string,
   is_creatable: PropTypes.bool,
-  required: PropTypes.bool
+  required: PropTypes.bool,
+  handleOnOptionSelection: PropTypes.func,
+  handleOnOptionRemove: PropTypes.func
 };
 
 MultiSelect.defaultProps = {
   pre_selection: [],
   help_text: '',
   required: false,
-  is_creatable: false
+  is_creatable: false,
+  handleOnOptionSelection: () => {/* Empty func */},
+  handleOnOptionRemove: () => {/* Empty func */}
 };
 
 export default MultiSelect;

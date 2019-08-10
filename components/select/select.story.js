@@ -1,6 +1,9 @@
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+
+import ReadMe from './README.md';
 
 import MainContainer from '@decorators/main_container';
 import Section from '@decorators/section';
@@ -36,12 +39,19 @@ const options = [
   }
 ];
 
-let SelectStories = storiesOf('Components/Select', module);
+let SelectStories = storiesOf('Components/Select', module)
+  .addParameters({
+    readme: {
+      sidebar: ReadMe
+    }
+  });
 
 SelectStories.add('Single Select', () => (
   <MainContainer>
     <Section heading="Basic Select">
-      <SingleSelect options={options} />
+      <SingleSelect
+        options={options}
+        handleOnOptionSelection={action('Basic Select: On Option Select')} />
     </Section>
     <Section heading="Select with help text">
       <SingleSelect options={options} help_text="This is a Help Text" />
@@ -65,7 +75,10 @@ SelectStories.add('Single Select', () => (
 SelectStories.add('Multi Select', () => (
   <MainContainer>
     <Section heading="Basic Multi Select">
-      <MultiSelect options={options} />
+      <MultiSelect
+        options={options}
+        handleOnOptionSelection={action('Basic Multi Select: On Option Select')}
+        handleOnOptionRemove={action('Basic Multi Select: On Option Remove')} />
     </Section>
     <Section heading="Multi Select with Help text">
       <MultiSelect options={options} help_text="This is a Help Text" />
