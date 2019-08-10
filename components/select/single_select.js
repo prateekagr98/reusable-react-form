@@ -196,7 +196,14 @@ class SingleSelect extends React.PureComponent {
 };
 
 SingleSelect.propTypes = {
-  options: PropTypes.array.isRequired,
+  options: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool
+      ]).isRequired
+  })).isRequired,
   placeholder: PropTypes.string,
   help_text: PropTypes.string,
   required: PropTypes.bool,

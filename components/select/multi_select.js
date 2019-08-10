@@ -233,8 +233,22 @@ class MultiSelect extends React.Component {
 };
 
 MultiSelect.propTypes = {
-  options: PropTypes.array,
-  pre_selection: PropTypes.array,
+  options: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool
+      ]).isRequired
+  })).isRequired,
+  pre_selection: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool
+      ]).isRequired
+  })),
   help_text: PropTypes.string,
   required: PropTypes.bool
 };
