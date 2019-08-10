@@ -9,7 +9,7 @@ import '../../styles/fonts.css';
 import { help_text_styles, error_text_style, input_error_style } from './select_common.styles';
 import { style_container_styles, select_input_styles, input_styles, selected_option_styles } from './multi_select.styles';
 
-class MultiSelect extends React.Component {
+class MultiSelect extends React.PureComponent {
 
   constructor(props) {
     super(props);
