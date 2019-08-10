@@ -183,7 +183,7 @@ class MultiSelect extends React.Component {
     }
 
     // Add No Options text if after filtering there are no options left
-    if(new_state.options.length) {
+    if(!new_state.options.length) {
       new_state.options.push({
         label: 'No Options available',
         value: 'No Options available',
