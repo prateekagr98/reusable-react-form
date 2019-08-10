@@ -57,12 +57,32 @@ class MultiSelect extends React.Component {
   handleOutsideClick(ev) {
     
     let isOwnNode = this.containerRef && this.containerRef.contains(ev.target);
+    let updated_state = {};
 
     if(this.state.is_open_dropdown && !isOwnNode) {
-      this.updateState({
-        is_open_dropdown: false
-      });
+      updated_state.is_open_dropdown = false;
     }
+
+    let error_message = this.validateSelection();
+
+    if(error_message) {
+      updated_state.error = {
+        enabled: true,
+        message: error_message
+      };
+    }
+
+    this.updateState(updated_state);
+  }
+
+  validateSelection() {
+    let message = '';
+
+    if(this.props.required && !this.state.selected_options.length) {
+      message = 'This is a required field';
+    }
+
+    return message;
   }
 
   onSelectInputClick(ev) {
@@ -77,7 +97,11 @@ class MultiSelect extends React.Component {
 
     this.updateState({
       is_open_dropdown: !this.state.is_open_dropdown,
-      options: updated_options
+      options: updated_options,
+      error: {
+        enabled: false,
+        message: ''
+      }
     });
   }
 
@@ -100,6 +124,11 @@ class MultiSelect extends React.Component {
       updated_state.is_open_dropdown = true;
     }
 
+    updated_state.error = {
+      enabled: false,
+      message: ''
+    };
+
     this.updateState(updated_state);
   }
 
@@ -109,7 +138,11 @@ class MultiSelect extends React.Component {
 
     this.updateState({
       options: updated_options,
-      selected_options: [...this.state.selected_options, selection]
+      selected_options: [...this.state.selected_options, selection],
+      error: {
+        enabled: false,
+        message: ''
+      }
     });
   }
 
@@ -129,11 +162,12 @@ class MultiSelect extends React.Component {
   }
 
   removeSelection(selection) {
-
-    this.updateState({
+    let updated_state = {
       options: [...this.state.options, selection],
       selected_options: this.state.selected_options.filter((item) => item.value !== selection.value)
-    });
+    };
+
+    this.updateState(updated_state);
   }
 
   updateState(target_state) {
@@ -201,12 +235,14 @@ class MultiSelect extends React.Component {
 MultiSelect.propTypes = {
   options: PropTypes.array,
   pre_selection: PropTypes.array,
-  help_text: PropTypes.string
+  help_text: PropTypes.string,
+  required: PropTypes.bool
 };
 
 MultiSelect.defaultProps = {
   pre_selection: [],
-  help_text: ''
+  help_text: '',
+  required: true
 };
 
 export default MultiSelect;
