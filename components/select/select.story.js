@@ -4,6 +4,7 @@ import { storiesOf } from '@storybook/react';
 
 import MainContainer from '@decorators/main_container';
 import Section from '@decorators/section';
+import InfoBox from '@decorators/info_box';
 
 import SingleSelect from './single_select';
 import MultiSelect from './multi_select';
@@ -51,6 +52,12 @@ SelectStories.add('Single Select', () => (
     <Section heading="Select with initial value">
       <SingleSelect options={options} help_text="This is a Help Text" value="blueberry" />
     </Section>
+    <Section heading="Select with option to create">
+      <InfoBox>
+        Shows an option to create a new option in case none is found in the list
+      </InfoBox>
+      <SingleSelect options={options} help_text="This is a Help Text" is_creatable />
+    </Section>
   </MainContainer>
 ));
 
@@ -68,6 +75,12 @@ SelectStories.add('Multi Select', () => (
     </Section>
     <Section heading="Multi Select with initial selection">
       <MultiSelect options={options} help_text="This is a Help Text" pre_selection={[options[0], options[3]]} />
+    </Section>
+    <Section heading="Multi Select with initial selection">
+      <InfoBox>
+        Shows an option to create a new option in case none is found in the list
+      </InfoBox>
+      <MultiSelect options={options} help_text="This is a Help Text" is_creatable />
     </Section>
   </MainContainer>
 ));

@@ -108,7 +108,7 @@ class MultiSelect extends React.Component {
   filterOptions(ev) {
     let input_text = ev.target.value.toString();
 
-    let searched_text = input_text.toLowerCase();
+    let searched_text = input_text.trim().toLowerCase();
 
     let filtered_options = this.props.options.filter((item) => item.label.toLowerCase().indexOf(searched_text) !== -1);
 
