@@ -6,6 +6,7 @@ import MainContainer from '@decorators/main_container';
 import Section from '@decorators/section';
 
 import SingleSelect from './single_select';
+import MultiSelect from './multi_select';
 
 const options = [
   {
@@ -40,6 +41,15 @@ SelectStories.add('Single Select', () => (
   <MainContainer>
     <Section heading="Basic Select">
       <SingleSelect options={options} help_text="This is the Help Text" />
+    </Section>
+  </MainContainer>
+));
+
+
+SelectStories.add('Multi Select', () => (
+  <MainContainer>
+    <Section heading="Basic Multi Select">
+      <MultiSelect options={options} />
     </Section>
   </MainContainer>
 ));

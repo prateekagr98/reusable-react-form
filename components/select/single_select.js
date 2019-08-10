@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Dropdown from './dropdown';
 import OptionTypes from './option_types';
 
+import '../../styles/fonts.css';
 import { help_text_styles, error_text_style, input_error_style } from './select_common.styles';
 import { style_container_styles, input_styles } from './single_select.styles';
 
@@ -23,8 +24,6 @@ class SingleSelect extends React.PureComponent {
         message: this.props.error_message
       }
     };
-
-    this.myRef = React.createRef();
   }
 
   componentDidMount() {
@@ -114,7 +113,7 @@ class SingleSelect extends React.PureComponent {
 
   }
 
-  handleOptionSelect(option) {
+  handleOptionSelect(selection) {
     let value = '';
     let target_state = {
       open_dropdown: false,
@@ -124,15 +123,10 @@ class SingleSelect extends React.PureComponent {
       }
     };
 
-    // In case of clicking outside the option won't be passed
-    if(option) {
-      let selected_option = this.props.options.filter((item) => item.value === option);
-
-      if(selected_option.length) {
-        value = selected_option[0].label;
-        target_state.value = value;
-        target_state.selected_option = selected_option[0];
-      }
+    // In case of clicking outside the selection won't be passed
+    if(selection) {
+      target_state.value = selection.label;
+      target_state.selected_option = selection;
     }
 
     this.setState(target_state, () => {

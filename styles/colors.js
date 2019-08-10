@@ -104,6 +104,9 @@ export default {
   'secondaryBlueT2': '#7c9ecc',
   'secondaryBlueT3': '#a8c0e0',
   'secondaryBlueT4': '#eef5ff',
-  'secondaryBlueT5': '#f5f9ff'
+  'secondaryBlueT5': '#f5f9ff',
+
+  'tealLightColor': '#dff8f6',
+  'tealColor': '#14aa9b'
   
 }

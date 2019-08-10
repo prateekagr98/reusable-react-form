@@ -8,7 +8,10 @@ const DropdownOption = (props) => {
 
   let onOptionClickHandler = function(ev) {
     ev.stopPropagation();
-    props.onOptionClick(props.value);
+    props.onOptionClick({
+      label: props.label,
+      value: props.value
+    });
   }
 
   return (
