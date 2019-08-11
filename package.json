@@ -2,9 +2,10 @@
   "name": "reusable-react-form",
   "version": "0.0.1",
   "description": "Reusable React Form",
-  "main": "index.js",
+  "main": "./bdist/bundle.js",
   "scripts": {
-    "storybook": "start-storybook"
+    "storybook": "start-storybook",
+    "build": "./node_modules/.bin/rollup --config"
   },
   "author": "Prateek Agarwal",
   "license": "ISC",
@@ -15,6 +16,13 @@
     "@storybook/react": "^5.1.10",
     "@storybook/theming": "^5.1.10",
     "babel-loader": "^8.0.6",
+    "rollup": "^1.19.4",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-cleanup": "^3.1.1",
+    "rollup-plugin-commonjs": "^10.0.2",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-postcss": "^2.0.3",
+    "rollup-plugin-terser": "^5.1.1",
     "storybook-addon-react-docgen": "^1.2.2",
     "storybook-readme": "^5.0.6"
   },
