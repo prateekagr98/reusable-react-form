@@ -21,3 +21,7 @@ Documentation and usage guidelines can be found in the storybook.
 - Include components in `components/build_entry.js` file (If created new ones).
 - Run `npm run build`
 - This will generate a build file in `dist/build.js` exporting all the components for usage
+
+#### Code Structuring
+- `styles`: The folder only includes the colour pallet and fonts being used.
+- `components`: This includes every component created as a module along with it's own README file and story.
