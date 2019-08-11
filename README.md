@@ -20,7 +20,9 @@ Documentation and usage guidelines can be found in the storybook.
 #### Generate Build
 - Include components in `components/build_entry.js` file (If created new ones).
 - Run `npm run build`
-- This will generate a build file in `dist/build.js` exporting all the components for usage
+- This will generate a build file in `dist/build.js` exporting all the components for usage.
+
+The repo uses rollup for generating exportable components and storybook for creating a UI for references.
 
 #### Code Structuring
 - `styles`: The folder only includes the colour pallet and fonts being used.
