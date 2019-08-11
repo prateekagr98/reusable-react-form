@@ -2,7 +2,7 @@
   "name": "reusable-react-form",
   "version": "0.0.1",
   "description": "Reusable React Form",
-  "main": "./bdist/bundle.js",
+  "main": "./dist/bundle.js",
   "scripts": {
     "storybook": "start-storybook",
     "build": "./node_modules/.bin/rollup --config"
