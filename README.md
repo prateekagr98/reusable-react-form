@@ -24,6 +24,13 @@ Documentation and usage guidelines can be found in the storybook.
 
 The repo uses rollup for generating exportable components and storybook for creating a UI for references.
 
+#### Usage
+- Install the package via npm 
+```
+npm install git+https://github.com//prateekagr98/reusable-react-form.git#<commit hash> --save
+```
+- Include it inside your code `import {Input, SingleSelect, MultiSelect} from "reusable-react-form"`
+
 #### Code Structuring
 - `styles`: The folder only includes the colour pallet and fonts being used.
 - `components`: This includes every component created as a module along with it's own README file and story.
