@@ -92,8 +92,7 @@ export default {
   'secondaryGreenT2': '#54c38e',
   'secondaryGreenT3': '#8cd6b3',
   'secondaryGreenT4': '#d9f2e6',
-  'secondaryGreenT5': '#eefbf0',
-  
+
 
   /*************************
     Secondary Blue Color Shades
