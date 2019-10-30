@@ -109,4 +109,5 @@ export default {
   'tealLightColor': '#dff8f6',
   'tealColor': '#14aa9b'
   
+  
 }
